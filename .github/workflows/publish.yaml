@@ -5,7 +5,7 @@ on:
       - '*'
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       hash: ${{ steps.hash.outputs.hash }}
     steps:
@@ -40,7 +40,7 @@ jobs:
     # Upload the sdist, wheels, and provenance to a GitHub release. They remain
     # available as build artifacts for a while as well.
     needs: ['provenance']
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: write
     steps:
@@ -57,7 +57,7 @@ jobs:
     # Wait for approval before attempting to upload to PyPI. This allows reviewing the
     # files in the draft release.
     environment: 'publish'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       id-token: write
     steps:

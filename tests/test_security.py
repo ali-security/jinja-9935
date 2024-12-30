@@ -153,6 +153,23 @@ class TestStringFormat:
         assert t1.render() == "afoob42"
         assert t2.render() == "a42b&lt;foo&gt;"
 
+    def test_indirect_call(self):
+        def run(value, arg):
+            return value.run(arg)
+
+        env = SandboxedEnvironment()
+        env.filters["run"] = run
+        t = env.from_string(
+            """{% set
+                ns = namespace(run="{0.__call__.__builtins__[__import__]}".format)
+            %}
+            {{ ns | run(not_here) }}
+            """
+        )
+
+        with pytest.raises(SecurityError):
+            t.render()
+
 
 class TestStringFormatMap:
     def test_basic_format_safety(self):

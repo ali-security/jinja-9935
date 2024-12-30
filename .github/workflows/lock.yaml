@@ -5,8 +5,6 @@ name: 'Lock threads'
 # rather than continuing discussions on old issues.
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
 
 permissions:
   issues: write
@@ -17,7 +15,7 @@ concurrency:
 
 jobs:
   lock:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
         with:
